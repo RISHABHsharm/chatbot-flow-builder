@@ -1,0 +1,27 @@
+.header {
+  padding: 1rem 2rem;
+  background-color: rgb(236, 239, 241);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button {
+  border: 1px solid;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.main {
+  display: flex;
+  height: 100vh;
+}
+
+.main > div:first-child {
+  flex: 4;
+}
+
+.main > div:last-child {
+  flex: 1;
+  border-left: 1px solid;
+}

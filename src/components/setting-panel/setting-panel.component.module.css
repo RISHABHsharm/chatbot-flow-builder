@@ -1,0 +1,25 @@
+.headerSection {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid;
+}
+
+.back {
+  cursor: pointer;
+}
+
+.header {
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin: 0.5rem 1rem;
+}
+
+.detailSection {
+  padding: 0.25rem 0.5rem;
+  border-bottom: 1px solid;
+}
+
+.detail {
+  width: 100%;
+  height: 4rem;
+}

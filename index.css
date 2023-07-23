@@ -1,0 +1,20 @@
+* {
+  box-sizing: border-box;
+}
+
+html body {
+  font-family: "Montserrat", sans-serif;
+  min-width: 1024px;
+  margin: auto;
+  color: rgba(20, 20, 27, 0.8);
+}
+
+div a {
+  color: inherit;
+}
+
+@media screen and (max-width: 959.95px) {
+  html body {
+    min-width: initial;
+  }
+}
