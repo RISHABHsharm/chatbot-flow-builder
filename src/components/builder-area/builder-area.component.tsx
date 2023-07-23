@@ -34,6 +34,7 @@ const BuilderArea = ({
     handleNodeClick(node.id);
   };
 
+  ///update the edge list on connecting nodes in builder area while checking if the source is connected only onces
   const handleNodesConnect = (connection: Edge | Connection) => {
     const isNodeSourceConnected =
       edges.filter((eds) => eds.source === connection.source).length > 0;
@@ -44,11 +45,13 @@ const BuilderArea = ({
     onEdgesChange(updateEdges);
   };
 
+  //update the edge list on edges modification in builder area
   const handleEdgesChange = (changes: EdgeChange[]) => {
     const updateEdges = applyEdgeChanges(changes, edges);
     onEdgesChange(updateEdges);
   };
 
+  //update the node list on nodes modification in builder area
   const handleNodesChange = (changes: NodeChange[]) => {
     const updateNodes = applyNodeChanges(changes, nodes);
     onNodesChange(updateNodes);

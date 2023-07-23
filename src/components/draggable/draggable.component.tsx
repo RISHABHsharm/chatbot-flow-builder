@@ -10,6 +10,7 @@ const Draggable = ({
   children,
   onDragStop,
 }: PropsWithChildren<DraggableProps>) => {
+  // handle operation when the user stop dragging the element
   const handleDragEnd = (e: DragEvent<HTMLDivElement>) => {
     const position = { x: e.clientX, y: e.clientY };
     onDragStop(position);

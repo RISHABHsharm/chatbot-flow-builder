@@ -19,7 +19,7 @@ const Snackbar = ({
 
   useEffect(() => {
     setShow(open);
-    // Automatically hide the snackbar after 3 seconds
+    // Automatically hide the snackbar after {autoHideDuration} seconds end
     if (open) {
       const timer = setTimeout(() => {
         setShow(false);

@@ -6,6 +6,7 @@ import BuilderArea from "./components/builder-area/builder-area.component";
 import Snackbar from "./components/snackbar/snackbar.component";
 import { INodeData, INodeposition } from "./types/node";
 import { Edge, Node } from "reactflow";
+import ErrorBoundary from "./components/error-boundary/error-boundary.component";
 
 const App = () => {
   const initialSavingState = { error: false, success: false, message: "" };
@@ -15,6 +16,7 @@ const App = () => {
   const [savingDataStatus, setSavingDataStatus] = useState(initialSavingState);
   const buildAreaRef = useRef<HTMLDivElement>(null);
 
+  // check for no. of nodes and no. of target edges left to show appropriate message to the user
   const saveData = () => {
     let hasError = nodes.length < 1;
     const targetEdgesIds = new Set(edges.map((eds) => eds.target));
@@ -28,6 +30,7 @@ const App = () => {
     });
   };
 
+  // Creates a node in builder Area on dropping the setting panel component
   const onNodeDrop = (nodePosition: INodeposition) => {
     const position = {
       x:
@@ -49,37 +52,39 @@ const App = () => {
 
   return (
     <div className={styles.root}>
-      <div className={styles.header}>
-        <button className={styles.button} onClick={saveData}>
-          Save Changes
-        </button>
-      </div>
-      <div className={styles.main} ref={buildAreaRef}>
-        <BuilderArea
-          nodes={nodes}
-          edges={edges}
-          onEdgesChange={(updateEdges) => setEdges(updateEdges)}
-          onNodesChange={(updateNodes) => setNodes(updateNodes)}
-          handleNodeClick={(nodeId) => setSelectedNodeId(nodeId)}
-        />
-        {selectedNodeId ? (
-          <SettingPanel
+      <ErrorBoundary>
+        <div className={styles.header}>
+          <button className={styles.button} onClick={saveData}>
+            Save Changes
+          </button>
+        </div>
+        <div className={styles.main} ref={buildAreaRef}>
+          <BuilderArea
             nodes={nodes}
-            selectedNodeId={selectedNodeId}
-            onNodeChange={(updatedNodes) => setNodes(updatedNodes)}
-            handleClose={() => setSelectedNodeId(null)}
+            edges={edges}
+            onEdgesChange={(updateEdges) => setEdges(updateEdges)}
+            onNodesChange={(updateNodes) => setNodes(updateNodes)}
+            handleNodeClick={(nodeId) => setSelectedNodeId(nodeId)}
           />
-        ) : (
-          <NodePanel onNodeDrop={onNodeDrop} />
-        )}
-      </div>
-      <Snackbar
-        status={savingDataStatus.success ? "success" : "error"}
-        open={savingDataStatus.error || savingDataStatus.success}
-        onClose={() => setSavingDataStatus(initialSavingState)}
-      >
-        {savingDataStatus.message}
-      </Snackbar>
+          {selectedNodeId ? (
+            <SettingPanel
+              nodes={nodes}
+              selectedNodeId={selectedNodeId}
+              onNodeChange={(updatedNodes) => setNodes(updatedNodes)}
+              handleClose={() => setSelectedNodeId(null)}
+            />
+          ) : (
+            <NodePanel onNodeDrop={onNodeDrop} />
+          )}
+        </div>
+        <Snackbar
+          status={savingDataStatus.success ? "success" : "error"}
+          open={savingDataStatus.error || savingDataStatus.success}
+          onClose={() => setSavingDataStatus(initialSavingState)}
+        >
+          {savingDataStatus.message}
+        </Snackbar>
+      </ErrorBoundary>
     </div>
   );
 };
